@@ -2,10 +2,11 @@ package com.android.tabishhassan.howwellyouknowyourfriend.activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.ExpandableListView;
 import com.android.tabishhassan.howwellyouknowyourfriend.R;
 import com.android.tabishhassan.howwellyouknowyourfriend.adapters.ExpandableListAdapter;
-
+import com.android.tabishhassan.howwellyouknowyourfriend.widgets.AnimatedExpandableList;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,7 +16,7 @@ public class PlayerOneActivity extends AppCompatActivity {
     String playerOneName , playerTwoName;
     HashMap<String , List<String>> Questions ;
     ExpandableListAdapter listAdapter;
-    ExpandableListView expListView;
+    AnimatedExpandableList expListView;
     List<String> listDataHeader;
     HashMap<String, List<String>> listDataChild;
 
@@ -25,11 +26,27 @@ public class PlayerOneActivity extends AppCompatActivity {
         setContentView(R.layout.activity_player_one);
         Questions =  new HashMap<String , List<String>>();
         PopulateDataSet();
-        expListView = (ExpandableListView) findViewById(R.id.expandableListView);
-
-        listAdapter = new ExpandableListAdapter(this, listDataHeader, listDataChild);
+        expListView = (AnimatedExpandableList) findViewById(R.id.expandableListView);
+        expListView.setGroupIndicator(null);
+        listAdapter = new ExpandableListAdapter(this);
+        listAdapter.setdata(this, listDataHeader, listDataChild);
         // setting list adapter
         expListView.setAdapter(listAdapter);
+        expListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+
+            @Override
+            public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
+                // We call collapseGroupWithAnimation(int) and
+                // expandGroupWithAnimation(int) to animate group
+                // expansion/collapse.
+                if (expListView.isGroupExpanded(groupPosition)) {
+                    expListView.collapseGroupWithAnimation(groupPosition);
+                } else {
+                    expListView.expandGroupWithAnimation(groupPosition);
+                }
+                return true;
+            }
+        });
     }
 
     public void PopulateDataSet(){
