@@ -3,6 +3,7 @@ package com.android.tabishhassan.howwellyouknowyourfriend.activities;
 import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
@@ -25,18 +26,18 @@ public class PlayerOneActivity extends ListActivity {
     List<String> data = new ArrayList<String>();
 
     String[] city= {
-            "Bangalore\t\t\t\t\t\t\t",
-            "Chennai\t\t\t\t\t\t\t\t\t\t\t\t",
-            "Mumbai\t\t\t\t\t\t\t\t",
-            "Pune\t\t\t\t\t\t\t\t\t\t",
-            "Delhi\t\t\t\t\t\t\t\t\t\t",
-            "Jabalpur\t\t\t\t\t\t\t\t\t\t\t\t\t",
-            "Indore\t\t\t\t\t\t\t\t\t",
-            "Ranchi\t\t\t\t\t\t\t\t\t",
-            "Hyderabad\t\t\t\t\t\t\t\t\t\t\t\t\t",
-            "Ahmedabad\t\t\t\t\t\t\t\t\t",
-            "Kolkata\t\t\t\t\t\t\t\t\t",
-            "Bhopal\t\t\t\t\t\t\t\t\t\t\t"
+            "Bangalore",
+            "Chennat",
+            "Mumbai",
+            "Pune",
+            "Delhi",
+            "Jabalpur",
+            "Indore",
+            "Ranchi",
+            "Hyderabad",
+            "Ahmedabad",
+            "Kolkata",
+            "Bhopal"
     };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
