@@ -8,10 +8,9 @@
         android:label="@string/app_name"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
         <activity
-            android:name="com.android.tabishhassan.howwellyouknowyourfriend.activities.MainActivity"
+            android:name=".activities.MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
-
         </activity>
         <activity
             android:name=".activities.PlayerOneActivity"
@@ -21,6 +20,10 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".activities.QuestionActivity"
+            android:label="@string/title_activity_question" >
         </activity>
     </application>
 

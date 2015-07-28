@@ -1,92 +1,103 @@
 package com.android.tabishhassan.howwellyouknowyourfriend.activities;
 
+import android.app.Activity;
+import android.app.ListActivity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ExpandableListView;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
+import android.widget.CheckedTextView;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import com.android.tabishhassan.howwellyouknowyourfriend.R;
-import com.android.tabishhassan.howwellyouknowyourfriend.adapters.ExpandableListAdapter;
-import com.android.tabishhassan.howwellyouknowyourfriend.widgets.AnimatedExpandableList;
+
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-public class PlayerOneActivity extends AppCompatActivity {
-    String playerOneName , playerTwoName;
-    HashMap<String , List<String>> Questions ;
-    ExpandableListAdapter listAdapter;
-    AnimatedExpandableList expListView;
-    List<String> listDataHeader;
-    HashMap<String, List<String>> listDataChild;
+public class PlayerOneActivity extends ListActivity {
+    List<String> data = new ArrayList<String>();
 
+    String[] city= {
+            "Bangalore\t\t\t\t\t\t\t",
+            "Chennai\t\t\t\t\t\t\t\t\t\t\t\t",
+            "Mumbai\t\t\t\t\t\t\t\t",
+            "Pune\t\t\t\t\t\t\t\t\t\t",
+            "Delhi\t\t\t\t\t\t\t\t\t\t",
+            "Jabalpur\t\t\t\t\t\t\t\t\t\t\t\t\t",
+            "Indore\t\t\t\t\t\t\t\t\t",
+            "Ranchi\t\t\t\t\t\t\t\t\t",
+            "Hyderabad\t\t\t\t\t\t\t\t\t\t\t\t\t",
+            "Ahmedabad\t\t\t\t\t\t\t\t\t",
+            "Kolkata\t\t\t\t\t\t\t\t\t",
+            "Bhopal\t\t\t\t\t\t\t\t\t\t\t"
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player_one);
-        Questions =  new HashMap<String , List<String>>();
-        PopulateDataSet();
-        expListView = (AnimatedExpandableList) findViewById(R.id.expandableListView);
-        expListView.setGroupIndicator(null);
-        listAdapter = new ExpandableListAdapter(this);
-        listAdapter.setdata(this, listDataHeader, listDataChild);
-        // setting list adapter
-        expListView.setAdapter(listAdapter);
-        expListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+        ListView list = getListView();
+        list.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+        list.setTextFilterEnabled(true);
+        setListAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice, city));
+    }
 
-            @Override
-            public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
-                // We call collapseGroupWithAnimation(int) and
-                // expandGroupWithAnimation(int) to animate group
-                // expansion/collapse.
-                if (expListView.isGroupExpanded(groupPosition)) {
-                    expListView.collapseGroupWithAnimation(groupPosition);
-                } else {
-                    expListView.expandGroupWithAnimation(groupPosition);
-                }
-                return true;
+    @Override
+    protected void onListItemClick(ListView l, View v, int position, long id) {
+        CheckedTextView item = (CheckedTextView) v;
+        Toast.makeText(this, city[position] + " checked : " +
+                item.isChecked(), Toast.LENGTH_SHORT).show();
+    }
+
+    public class ListAdapter extends BaseAdapter{
+        Activity context;
+        LayoutInflater inflater;
+        public ListAdapter(Activity c){
+            this.context = c;
+            inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        }
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public int getCount() {
+            return data.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return data.get(position);
+        }
+
+        @Override
+        public View getView(final int position, View convertView, ViewGroup parent) {
+            ViewHolder holder ;
+            if(convertView==null)
+            {
+                holder = new ViewHolder();
+                convertView = inflater.inflate(R.layout.list_items,null);
+                holder.textView = (TextView)convertView.findViewById(R.id.lblListItems);
+                convertView.setTag(holder);
+
             }
-        });
-    }
-
-    public void PopulateDataSet(){
-        listDataHeader = new ArrayList<String>();
-        listDataChild = new HashMap<String, List<String>>();
-
-        // Adding child data
-        listDataHeader.add("Top 250");
-        listDataHeader.add("Now Showing");
-        listDataHeader.add("Coming Soon..");
-
-        // Adding child data
-        List<String> top250 = new ArrayList<String>();
-        top250.add("The Shawshank Redemption");
-        top250.add("The Godfather");
-        top250.add("The Godfather: Part II");
-        top250.add("Pulp Fiction");
-        top250.add("The Good, the Bad and the Ugly");
-        top250.add("The Dark Knight");
-        top250.add("12 Angry Men");
-
-        List<String> nowShowing = new ArrayList<String>();
-        nowShowing.add("The Conjuring");
-        nowShowing.add("Despicable Me 2");
-        nowShowing.add("Turbo");
-        nowShowing.add("Grown Ups 2");
-        nowShowing.add("Red 2");
-        nowShowing.add("The Wolverine");
-
-        List<String> comingSoon = new ArrayList<String>();
-        comingSoon.add("2 Guns");
-        comingSoon.add("The Smurfs 2");
-        comingSoon.add("The Spectacular Now");
-        comingSoon.add("The Canyons");
-        comingSoon.add("Europa Report");
-
-        listDataChild.put(listDataHeader.get(0), top250); // Header, Child data
-        listDataChild.put(listDataHeader.get(1), nowShowing);
-        listDataChild.put(listDataHeader.get(2), comingSoon);
+            else
+            {
+                holder = (ViewHolder)convertView.getTag();
+            }
+            holder.textView.setText(data.get(position));
+            return convertView;
+        }
 
     }
-
+    public static class ViewHolder{
+        TextView textView;
+    }
 }

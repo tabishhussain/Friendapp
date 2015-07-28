@@ -6,13 +6,11 @@
     android:padding="15dp"
     tools:context="com.android.tabishhassan.howwellyouknowyourfriend.activities.PlayerOneActivity">
 
-    <com.android.tabishhassan.howwellyouknowyourfriend.widgets.AnimatedExpandableList
-        android:layout_width="match_parent"
-        android:layout_height="fill_parent"
-        android:id="@+id/expandableListView"
-        android:childDivider="#ffffff"
-        android:divider="#ffffff"
-        android:dividerHeight="10dp"
-        android:listSelector="@android:color/transparent"
-         />
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/android:list"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="1" />
+
 </LinearLayout>
