@@ -37,6 +37,15 @@ public class PlayerOneActivity extends ListActivity {
             "Hyderabad",
             "Ahmedabad",
             "Kolkata",
+            "Bhopal",
+            "Pune",
+            "Delhi",
+            "Jabalpur",
+            "Indore",
+            "Ranchi",
+            "Hyderabad",
+            "Ahmedabad",
+            "Kolkata",
             "Bhopal"
     };
     @Override
@@ -46,7 +55,8 @@ public class PlayerOneActivity extends ListActivity {
         ListView list = getListView();
         list.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
         list.setTextFilterEnabled(true);
-        setListAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice, city));
+        setListAdapter(new ArrayAdapter<String>(this,R.layout.list_items, city));
+        list.setDividerHeight(4);
     }
 
     @Override
@@ -54,51 +64,5 @@ public class PlayerOneActivity extends ListActivity {
         CheckedTextView item = (CheckedTextView) v;
         Toast.makeText(this, city[position] + " checked : " +
                 item.isChecked(), Toast.LENGTH_SHORT).show();
-    }
-
-    public class ListAdapter extends BaseAdapter{
-        Activity context;
-        LayoutInflater inflater;
-        public ListAdapter(Activity c){
-            this.context = c;
-            inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        }
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
-
-        @Override
-        public int getCount() {
-            return data.size();
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return data.get(position);
-        }
-
-        @Override
-        public View getView(final int position, View convertView, ViewGroup parent) {
-            ViewHolder holder ;
-            if(convertView==null)
-            {
-                holder = new ViewHolder();
-                convertView = inflater.inflate(R.layout.list_items,null);
-                holder.textView = (TextView)convertView.findViewById(R.id.lblListItems);
-                convertView.setTag(holder);
-
-            }
-            else
-            {
-                holder = (ViewHolder)convertView.getTag();
-            }
-            holder.textView.setText(data.get(position));
-            return convertView;
-        }
-
-    }
-    public static class ViewHolder{
-        TextView textView;
     }
 }
