@@ -13,7 +13,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.CheckedTextView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,9 +24,8 @@ import com.android.tabishhassan.howwellyouknowyourfriend.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlayerOneActivity extends ListActivity {
+public class PlayerOneActivity extends Activity {
     List<String> data = new ArrayList<String>();
-
     String[] city= {
             "Bangalore",
             "Chennat",
@@ -52,17 +53,11 @@ public class PlayerOneActivity extends ListActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player_one);
-        ListView list = getListView();
-        list.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-        list.setTextFilterEnabled(true);
-        setListAdapter(new ArrayAdapter<String>(this,R.layout.list_items, city));
-        list.setDividerHeight(4);
-    }
-
-    @Override
-    protected void onListItemClick(ListView l, View v, int position, long id) {
-        CheckedTextView item = (CheckedTextView) v;
-        Toast.makeText(this, city[position] + " checked : " +
-                item.isChecked(), Toast.LENGTH_SHORT).show();
+        LinearLayout layout = (LinearLayout)findViewById(R.id.layoutitems);
+        for(int i = 0 ; i < city.length; i++)
+        {
+            scrollview view = new scrollview(PlayerOneActivity.this,city[i]);
+            layout.addView(view.getView());
+        }
     }
 }
